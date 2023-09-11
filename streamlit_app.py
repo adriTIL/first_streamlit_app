@@ -43,8 +43,6 @@ try:
 except URLError as e:
     streamlit.error()
 
-# import snowflake.connector 
-
 streamlit.header("View our Fruit list - Add your favorites!")
 # Snowflake-related functions
 def get_fruit_load_list():
@@ -69,5 +67,6 @@ add_my_fruit = streamlit.text_input('What fruit would you like to add?')
 if streamlit.button('Add a Fruit to the list'):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   back_from_function = insert_row_snowflake(add_my_fruit)
+  my_cnx.close()
   streamlit.text(back_from_function)
 
